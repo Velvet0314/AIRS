@@ -1,2 +1,0 @@
-val_every_n_global_steps:
-  every_n: 10000

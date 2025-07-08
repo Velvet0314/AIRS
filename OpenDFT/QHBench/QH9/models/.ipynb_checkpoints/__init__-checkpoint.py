@@ -1,2 +1,0 @@
-from .QHNet import QHNet
-

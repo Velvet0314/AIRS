@@ -1,3 +1,0 @@
-_name_: gene_expression
-loss:
-  _name_: smooth_l1_loss

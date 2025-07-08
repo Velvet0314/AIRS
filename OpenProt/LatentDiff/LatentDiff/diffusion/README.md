@@ -1,1 +1,0 @@
-The diffusion code base is adapted from [EDM](https://github.com/ehoogeboom/e3_diffusion_for_molecules).
