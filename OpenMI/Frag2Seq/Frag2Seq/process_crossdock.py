@@ -13,7 +13,8 @@ from tqdm import tqdm
 import numpy as np
 
 from Bio.PDB import PDBParser
-from Bio.PDB.Polypeptide import three_to_one, is_aa
+from Bio.PDB.Polypeptide import is_aa
+from Bio.SeqUtils import seq1
 from rdkit import Chem
 from scipy.ndimage import gaussian_filter
 
@@ -48,7 +49,7 @@ def process_ligand_and_pocket(pdbfile, sdffile,
     # remove H atoms if not in atom_dict, other atom types that aren't allowed
     # should stay so that the entire ligand can be removed from the dataset
     lig_atoms = [a.GetSymbol() for a in ligand.GetAtoms()
-                 if (a.GetSymbol().capitalize() in atom_dict or a.element != 'H')]
+                 if (a.GetSymbol().capitalize() in atom_dict or a.GetSymbol() != 'H')]
     lig_coords = np.array([list(ligand.GetConformer(0).GetAtomPosition(idx))
                            for idx in range(ligand.GetNumAtoms())])
 
@@ -87,7 +88,7 @@ def process_ligand_and_pocket(pdbfile, sdffile,
                 for atom in res.get_atoms():
                     if atom.name == 'CA':
                         pocket_one_hot.append(np.eye(1, len(amino_acid_dict),
-                                                     amino_acid_dict[three_to_one(res.get_resname())]).squeeze())
+                                                     amino_acid_dict[seq1(res.get_resname())]).squeeze())
                         full_coords.append(atom.coord)
             pocket_one_hot = np.stack(pocket_one_hot)
             full_coords = np.stack(full_coords)

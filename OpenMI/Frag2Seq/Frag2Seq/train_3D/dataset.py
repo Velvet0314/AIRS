@@ -91,7 +91,7 @@ class NewMol3DDataset(Dataset):
         targets = raw_input_ids[1:]
         # import pdb; pdb.set_trace()
 
-        if protein_padded_embedding.requires_grad:
+        if protein_padded_embedding is not None and protein_padded_embedding.requires_grad:
             protein_padded_embedding.requires_grad_(False)
         
         return input_ids, targets, condition_split_id, protein_padded_embedding, protein_embedding_mask

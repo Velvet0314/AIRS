@@ -401,7 +401,7 @@ def generate_frag_seq(data, base_dir, test=False, process_lig_only=False, max_le
             valid_protein = True
             
             name = names[i]
-            sdf_data_root = Path('../crossdock2020/crossdocked_pocket10') / name.split('.pdb_')[1].strip()
+            sdf_data_root = Path('../data/crossdocked_pocket10') / name.split('.pdb_')[1].strip()
             # print(str(data_root))
             supplier = Chem.SDMolSupplier(str(sdf_data_root))
             mol = supplier[0]
@@ -449,7 +449,7 @@ def generate_frag_seq(data, base_dir, test=False, process_lig_only=False, max_le
             
             
             if process_lig_only:
-                root = "../crossdock2020/crossdocked_pocket10"
+                root = "../data/crossdocked_pocket10"
                 path = Path(data['names'][i].split('.pdb')[0] + '.pdb')
                 fpath = root / path
                 # generate_embedding(txn_write, count=i, split=prefix, data=data, max_len=560)
@@ -583,9 +583,8 @@ if __name__ == '__main__':
 
 
     base_dir = Path(args.save_folder)
-    
     if not base_dir.exists():
-        base_dir.mkdir()
+        base_dir.mkdir(parents=True, exist_ok=True)
     
     ca_only = True
     if ca_only:
@@ -598,8 +597,8 @@ if __name__ == '__main__':
     atom_decoder = dataset_info['atom_decoder']
     
     
-    train_data = np.load(os.path.join("../crossdock2020/", f"{args.base_folder}", "train.npz"))
-    test_data = np.load(os.path.join("../crossdock2020/", f"{args.base_folder}", "test.npz"))
+    train_data = np.load(os.path.join("../data/", f"{args.base_folder}", "train.npz"))
+    test_data = np.load(os.path.join("../data/", f"{args.base_folder}", "test.npz"))
     
     
     atom_swapped_dict = {value: key for key, value in atom_dict.items()}

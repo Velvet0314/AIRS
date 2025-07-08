@@ -1,11 +1,11 @@
 #!/bin/sh
 
-gpu=2
+gpu=0
 
 CUDA_VISIBLE_DEVICES=${gpu} \
 python train_3D/train.py \
 --run_name frag2seq \
---batch_size 64 \
+--batch_size 1 \
 --max_epochs 2000 \
 --root_path ./seq/two_digit_smiles_reorder_cutoff_15_ligand_only_frag/train_frag_seq \
 --output_tokenizer_dir ../seq/storage/two_digit_smiles_reorder_cutoff_15_ligand_only_frag/train_frag_seq/tokenizer \
@@ -16,4 +16,3 @@ python train_3D/train.py \
 --protein_embedding_val_path "./seq/two_digit_smiles_reorder_cutoff_15_ligand_only_frag/protein_embedding_val.lmdb" \
 --mode 'cross' \
 --ESM_protein \
-

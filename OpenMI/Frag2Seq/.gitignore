@@ -1,0 +1,6 @@
+**/seq/
+**/data/
+**/log/
+**/.vscode/
+**/__pycache__/
+**/checkpoint/
